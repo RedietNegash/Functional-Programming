@@ -48,3 +48,10 @@ const EventReducer = (dataStore, event) => {
     }
   });
 };
+
+/*
+The dispatchevent function updates the initialDataStore object based on the provided event object
+*/
+const dispatchEvent = (event) => {
+  initialDataStore = EventReducer(initialDataStore, event);
+};
