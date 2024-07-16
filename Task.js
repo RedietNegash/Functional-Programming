@@ -55,3 +55,53 @@ The dispatchevent function updates the initialDataStore object based on the prov
 const dispatchEvent = (event) => {
   initialDataStore = EventReducer(initialDataStore, event);
 };
+
+/* 
+The logActions is a curried function that helps to log to the console every time an event is dispatched it  
+takes the dataStore as the first argument and returns a new function that takes the event as the second argument.
+*/
+const logActions = (dataStore) => (event) => {
+  console.log("Event dispatched:", event);
+  return EventReducer(dataStore, event);
+};
+
+/*
+actionHistory: it is an array that stores the previous states of the data store.
+currentIndex: it is an index that track the cuurent position in the action history.
+*/
+
+let actionHistory = [];
+let currentIndex = -1;
+
+/*
+  The undoAction function is a curried function that takes the dataStore as the first argument
+  and returns a new function that takes the currentindex as the argument. 
+  It checksIf the currentindex is greater than 0, it decrements currentIndex and returns the previous dataStore
+  from the actionHistory array. 
+  */
+const undoAction = (dataStore) => {
+  return (currentIndex) => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      return actionHistory[currentIndex];
+    }
+    return dataStore;
+  };
+};
+
+/*
+  The redoAction function is a curried function that takes the dataStore as the first argument
+  and returns a new function that takes the currentindex as the argument.
+  If the currentIndex is less than the length of actionHistory minus 1,
+  it increments currentIndex to move forward to the next state and returns the next dataStore
+  from the actionHistory array.
+ */
+const redoAction = (dataStore) => {
+  return (currentIndex) => {
+    if (currentIndex < actionHistory.length - 1) {
+      currentIndex++;
+      return actionHistory[currentIndex];
+    }
+    return dataStore;
+  };
+};
