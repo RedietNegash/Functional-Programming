@@ -105,3 +105,42 @@ const redoAction = (dataStore) => {
     return dataStore;
   };
 };
+
+/* 
+The add to cart function accepts an item object then inside this function there is a dispatchEvent function which accepts an event object which has 
+   -type: it specifies the type of the event.
+   -payload: it containes the actual data or the item.
+This function trigers an event of type addtocart with an item as a payload.
+*/
+const addToCart = (item) => {
+  dispatchEvent({ type: "ADD_TO_CART", payload: item });
+};
+
+/* 
+The remove from cart function accepts an item object then inside this function there is a dispatchEvent function which accepts an event object which has 
+   -type: it specifies the type of the event.
+   -payload: it containes the actual data or the item.
+This function trigers an event of type removefromcart with an item as a payload.
+*/
+const removeFromCart = (item) => {
+  dispatchEvent({ type: "REMOVE_FROM_CART", payload: item });
+};
+
+/* 
+The loginUser function accepts a name then inside this function there is a dispatchEvent function which accepts an event object which has 
+   -type: it specifies the type of the event.
+   -payload: it containes the actual data or the item.
+This function trigers an event of type loginuser with a name as a payload.
+*/
+const loginUser = (name) => {
+  dispatchEvent({ type: "LOGIN_USER", payload: { name } });
+};
+
+/* 
+The logoutuser function don't accept anything as a parapmeter it contains 
+   -type: it specifies the type of the event.
+This function trigers an event of type logoutuser.
+*/
+const logoutUser = () => {
+  dispatchEvent({ type: "LOGOUT_USER" });
+};
